@@ -12,6 +12,7 @@ function AddEmployeeModal({
   setShowModal,
   loadEmployees,
   selectedEmployee,
+  setSelectedEmployee,
 }) {
 
   const [employee, setEmployee] = useState({
@@ -120,6 +121,21 @@ function AddEmployeeModal({
 
   };
 
+  const resetForm = () => {
+
+  setEmployee({
+    firstName: "",
+    lastName: "",
+    email: "",
+    department: "",
+    designation: "",
+    salary: "",
+  });
+
+  setErrors({});
+  setSelectedEmployee(null);
+};
+
   const handleSubmit = async (e) => {
 
     e.preventDefault();
@@ -145,6 +161,8 @@ function AddEmployeeModal({
       }
 
       await loadEmployees();
+
+      resetForm();
 
       setShowModal(false);
 
@@ -183,7 +201,10 @@ function AddEmployeeModal({
 
           <button
             type="button"
-            onClick={() => setShowModal(false)}
+            onClick={() => {
+              resetForm();
+              setShowModal(false);
+            }}
             className="text-2xl text-gray-500 transition hover:text-red-500"
           >
             ✕
@@ -371,7 +392,10 @@ function AddEmployeeModal({
             <button
               type="button"
               disabled={loading}
-              onClick={() => setShowModal(false)}
+              onClick={() => {
+                resetForm();
+                setShowModal(false);
+              }}
               className="rounded-xl bg-gray-200 px-6 py-3 font-medium transition hover:bg-gray-300 disabled:opacity-50"
             >
               Cancel

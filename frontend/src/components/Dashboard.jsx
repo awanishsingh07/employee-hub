@@ -38,13 +38,13 @@ function Dashboard() {
     try {
       await deleteEmployee(employeeToDelete.id);
 
-      loadEmployees();
+      await loadEmployees();
 
       setShowDeleteModal(false);
       setEmployeeToDelete(null);
 
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -55,11 +55,11 @@ function Dashboard() {
 
     return (
       fullName.includes(search.toLowerCase()) ||
+      employee.id.toString().includes(search)||
       employee.email.toLowerCase().includes(search.toLowerCase()) ||
       employee.department.toLowerCase().includes(search.toLowerCase()) ||
       employee.designation.toLowerCase().includes(search.toLowerCase())
     );
-
   });
 
   return (
@@ -88,6 +88,7 @@ function Dashboard() {
         showModal={showModal}
         setShowModal={setShowModal}
         selectedEmployee={selectedEmployee}
+        setSelectedEmployee={setSelectedEmployee}
         loadEmployees={loadEmployees}
       />
 
